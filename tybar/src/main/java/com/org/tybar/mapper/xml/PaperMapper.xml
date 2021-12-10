@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.org.tybar.mapper.PaperMapper">
+    <insert id="addPaper" parameterType="com.org.tybar.pojo.Paper">
+        insert into papers
+            (paperId,userId, paperTitle, paperSummary, paperStartDate, paperEndDate, paperStatus,questionList)
+        values
+            (#{paperId},#{userId},#{paperTitle},#{paperSummary},#{paperStartDate},#{paperEndDate},#{paperStatus},#{questionList});
+    </insert>
+
+    <update id="updatePaper" parameterType="com.org.tybar.pojo.Paper">
+        update papers
+        set paperTitle = #{paperTitle},paperSummary = #{paperSummary},paperEndDate = #{paperEndDate},paperStatus = #{paperStatus},questionList = #{questionList}
+        where paperId = #{paperId};
+    </update>
+
+    <update id="updateStatusPublishById" parameterType="String">
+        update papers
+        set paperStatus = 1
+        where paperId = #{paperId}
+    </update>
+
+    <update id="updateStatusSaveById">
+        update papers
+        set paperStatus = 0
+        where paperId = #{paperId}
+    </update>
+
+    <select id="getPaperList" resultType="com.org.tybar.pojo.Paper">
+        select * from papers;
+    </select>
+
+    <select id="getPaperByUserId" resultType="com.org.tybar.pojo.Paper" parameterType="int">
+        select * from papers where userId = #{userId};
+    </select>
+
+    <select id="getPaperByPaperId" resultType="com.org.tybar.pojo.Paper" parameterType="String">
+        select * from papers where paperId = #{paperId};
+    </select>
+
+    <delete id="deletePaperByPaperId" parameterType="String">
+        delete from papers where paperId = #{paperId}
+    </delete>
+
+</mapper>

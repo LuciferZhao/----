@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    #?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/tybar?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    #Spring Boot
+    #druid
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+  mail:
+    host: smtp.qq.com
+    username: 1355589361@qq.com
+    password: asqsldhuncnhbafc
+    default-encoding: utf-8
+    properties:
+      main:
+        smtp:
+          auth: true
+          timeout: 25000
+          starttls:
+            enable: true
+            required: true
+mybatis:
+  mapper-locations: classpath*:com/org/tybar/mapper/xml/*.xml
+  type-aliases-package: com.org.tybar.pojo
+
+server:
+  port: 8084

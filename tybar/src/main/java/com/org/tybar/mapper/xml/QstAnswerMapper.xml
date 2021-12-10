@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.org.tybar.mapper.QstAnswerMapper">
+
+    <insert id="addQstAnswer" parameterType="com.org.tybar.pojo.QstAnswer">
+        insert into qstanswers
+            (paperId, userId, answer)
+        values
+            (#{paperId},#{userId},#{answer});
+    </insert>
+
+    <insert id="copyQstAnswer" parameterType="com.org.tybar.pojo.QstAnswer">
+        INSERT  INTO  qstanswers(paperId, userId, answer)
+        <foreach collection="qstAnswerList" item="qstAnswer" index="index" separator="union all">
+            select
+            #{qstAnswer.paperId},
+            #{qstAnswer.userId},
+            #{qstAnswer.answer}
+            FROM dual
+        </foreach>
+    </insert>
+
+    <update id="updateQstAnswer" parameterType="com.org.tybar.pojo.QstAnswer">
+        update qstanswers
+        set answer = #{answer}
+        where answerId = #{answerId}
+    </update>
+
+    <delete id="delQstAnswer" parameterType="list">
+        delete from qstanswers where answerId in
+        <foreach collection="answerIdList"  open="(" close=")" separator=","  item="item" >
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <select id="getQstAnswer" resultType="object" parameterType="com.org.tybar.pojo.vo.SaveUserAnwserInfo">
+        select answer from qstanswers
+        where paperId = #{paperId} and userId = #{userId};
+    </select>
+    <select id="getQstAnswerByPaperId" resultType="string" parameterType="string">
+        select answer from qstanswers
+        where paperId = #{paperId};
+    </select>
+    <select id="getQstAnswerInfos" resultType="com.org.tybar.pojo.QstAnswer" parameterType="string">
+        select * from qstanswers
+        where paperId = #{paperId};
+    </select>
+    <select id="getQstAnserInfosById" resultType="com.org.tybar.pojo.QstAnswer" parameterType="int">
+        select * from qstanswers
+        where answerId = #{answerId}
+    </select>
+</mapper>

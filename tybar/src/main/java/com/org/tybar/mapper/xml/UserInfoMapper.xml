@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.org.tybar.mapper.UserInfoMapper">
+    <insert id="addUser" parameterType="com.org.tybar.pojo.UserInfo">
+        insert into
+            userinfo(username, password, email)
+            VALUES
+            (#{username},#{password},#{email});
+    </insert>
+
+    <select id="getUserInfoList" resultType="com.org.tybar.pojo.UserInfo">
+        select * from userInfo;
+    </select>
+
+    <select id="getUserInfo" resultType="com.org.tybar.pojo.UserInfo" parameterType="String">
+        select * from userinfo where email = #{email} and password = #{password};
+    </select>
+
+    <select id="findUserByName" resultType="com.org.tybar.pojo.UserInfo" parameterType="String">
+        select * from userinfo where username = #{username};
+    </select>
+
+    <select id="findUserByEmail" resultType="com.org.tybar.pojo.UserInfo" parameterType="String">
+        select * from userinfo where email = #{email};
+    </select>
+
+</mapper>

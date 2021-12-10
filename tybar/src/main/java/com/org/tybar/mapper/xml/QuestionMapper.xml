@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.org.tybar.mapper.QuestionMapper">
+    <insert id="addQuestion" parameterType="com.org.tybar.pojo.Question">
+        insert into questions
+            (paperId, qstType, qstTitle, qstOption,inputTips,selected)
+        values
+            (#{paperId},#{qstType},#{qstTitle},#{qstOption},#{inputTips},#{selected});
+    </insert>
+    <update id="updateQuestion" parameterType="com.org.tybar.pojo.Question">
+        update questions
+        set qstType = #{qstType},qstTitle = #{qstTitle},qstOption = #{qstOption},inputTips=#{inputTips},selected = #{selected}
+        where qstId = #{qstId} and paperId = #{paperId};
+    </update>
+
+    <delete id="deleteQuestionByPaperId" parameterType="String">
+        delete from questions where paperId = #{paperId};
+    </delete>
+
+    <select id="getQuestionsByPaperId" resultType="com.org.tybar.pojo.Question">
+        select * from questions where paperId = #{paperId};
+    </select>
+
+</mapper>
